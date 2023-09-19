@@ -13,6 +13,8 @@ public class BallController : MonoBehaviour
     [SerializeField] Collider col;
     [SerializeField] MeshRenderer graphic;
 
+    public UnityEngine.Events.UnityEvent onLocalMerge = new();
+
     public static UnityEngine.Events.UnityEvent<BallController> onSpawn = new();
     public static UnityEngine.Events.UnityEvent<BallController> onDespawn = new();
     public static UnityEngine.Events.UnityEvent<BallController> onMerge = new();
@@ -36,8 +38,6 @@ public class BallController : MonoBehaviour
         rb.useGravity = true;
 
         rb.AddForce(dir * force, ForceMode.Impulse);
-
-        Spawned();
     }
 
     public void Freeze()
@@ -51,12 +51,14 @@ public class BallController : MonoBehaviour
     {
         if (_scaleIndex >= settings.balls.Count - 1) return;
 
-        SetScale(_scaleIndex + 1);
         rb.MovePosition(Vector3.Lerp(transform.position, other.transform.position, .5f));
 
         Destroy(other.gameObject);
 
         onMerge.Invoke(this);
+        onLocalMerge.Invoke();
+        
+        SetScale(_scaleIndex + 1);
     }
 
     public void Spawned()

@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
     void LaunchBall(Vector3 dir)
     {
         _currentBall.Launch(dir, launchForce);
+        _currentBall.Spawned();
         _currentBall = null;
     }
 

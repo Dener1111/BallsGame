@@ -23,6 +23,8 @@ public class BallManager : MonoBehaviour
 
     List<BallController> balls = new();
 
+    public UnityEngine.Events.UnityEvent onMerge = new();
+
     public static UnityEngine.Events.UnityEvent<BallController> onLastBall = new();
 
 
@@ -78,6 +80,7 @@ public class BallManager : MonoBehaviour
     void OnMerge(BallController ball)
     {
         SpawnVfx(ball);
+        onMerge.Invoke();
     }
 
     void SpawnVfx(BallController ball)
@@ -102,6 +105,7 @@ public class BallManager : MonoBehaviour
                 item.transform.DOMove(transform.position, .5f);
             }
 
+            SpawnVfx(maxBall);
             onLastBall.Invoke(maxBall);
         }
     }
