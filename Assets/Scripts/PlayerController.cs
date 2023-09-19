@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         _currentBall = BallManager.inst.SpawnPlayerBall(spawnPos.position);
         _currentBall.Freeze();
+        _currentBall.onLocalMerge.Invoke();
     }
 
     void LaunchBall(Vector3 dir)

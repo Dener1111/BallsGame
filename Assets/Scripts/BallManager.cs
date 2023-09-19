@@ -12,7 +12,6 @@ public class BallManager : MonoBehaviour
 
     [SerializeField] ParticleSystem mergeVfx;
 
-
     [Space]
     [SerializeField] int maxStartBallCount = 4;
     [SerializeField] int maxPlayerScale = 7;
