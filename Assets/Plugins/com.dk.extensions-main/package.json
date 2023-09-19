@@ -1,0 +1,14 @@
+{
+    "name": "com.dk.extensions",
+    "displayName": "DKExtensions",
+    "version": "1.1.0",
+    "unity": "2019.1",
+    "author": "DK",
+    "description": "Extensions colected over many projects",
+    "dependencies": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Dener1111/com.dk.extensions.git"
+    }
+}
