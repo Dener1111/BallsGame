@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using DG.Tweening;
 
 public class BallManager : MonoBehaviour
 {
@@ -79,6 +80,7 @@ public class BallManager : MonoBehaviour
             {
                 item.Freeze();
                 item.transform.position = maxBall.transform.position;
+                item.transform.DOMove(transform.position, .5f);
             }
 
             onLastBall.Invoke(maxBall);

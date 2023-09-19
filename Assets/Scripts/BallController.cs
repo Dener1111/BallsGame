@@ -15,6 +15,7 @@ public class BallController : MonoBehaviour
 
     public static UnityEngine.Events.UnityEvent<BallController> onSpawn = new();
     public static UnityEngine.Events.UnityEvent<BallController> onDespawn = new();
+    public static UnityEngine.Events.UnityEvent<BallController> onMerge = new();
 
     int _scaleIndex;
 
@@ -54,6 +55,8 @@ public class BallController : MonoBehaviour
         rb.MovePosition(Vector3.Lerp(transform.position, other.transform.position, .5f));
 
         Destroy(other.gameObject);
+
+        onMerge.Invoke(this);
     }
 
     public void Spawned()

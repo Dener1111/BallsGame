@@ -344,7 +344,7 @@ MonoBehaviour:
   line: {fileID: 2054417729}
   spawnPos: {fileID: 612726383}
   launchForce: 10
-  spawnWait: 0.5
+  spawnWait: 0.2
 --- !u!1 &614956666
 GameObject:
   m_ObjectHideFlags: 0
