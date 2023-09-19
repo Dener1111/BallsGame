@@ -9,9 +9,14 @@ public class BallController : MonoBehaviour
     [SerializeField] LayerMask mask;
 
     [Space]
+    [SerializeField] TrailRenderer trail;
     [SerializeField] Rigidbody rb;
     [SerializeField] Collider col;
     [SerializeField] MeshRenderer graphic;
+
+    [Space]
+    [SerializeField] float explosionRadius = 3f;
+    [SerializeField] float explosionImpulse = 7f;
 
     public UnityEngine.Events.UnityEvent onLocalMerge = new();
 
@@ -33,6 +38,8 @@ public class BallController : MonoBehaviour
 
     public void Launch(Vector3 dir, float force)
     {
+        trail.enabled = true;
+
         col.enabled = true;
         rb.isKinematic = false;
         rb.useGravity = true;
@@ -53,12 +60,22 @@ public class BallController : MonoBehaviour
 
         rb.MovePosition(Vector3.Lerp(transform.position, other.transform.position, .5f));
 
+        SetScale(_scaleIndex + 1);
+
         Destroy(other.gameObject);
 
         onMerge.Invoke(this);
         onLocalMerge.Invoke();
-        
-        SetScale(_scaleIndex + 1);
+
+        var cols = Physics.OverlapSphere(transform.position, explosionRadius, mask);
+        foreach (var item in cols)
+        {
+            //     print("AAAA: " + item.gameObject.name);
+            if(item.transform.root.gameObject == gameObject) continue;
+            if (item.transform.root.TryGetComponent(out BallController ball))
+                ball.rb.AddExplosionForce(explosionImpulse, transform.position, explosionRadius, 5f);
+        }
+
     }
 
     public void Spawned()
@@ -73,6 +90,8 @@ public class BallController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+
+        trail.enabled = false;
         if (mask.Excludes(other.gameObject.layer)) return;
 
         if (other.gameObject.TryGetComponent(out BallController otherBall))

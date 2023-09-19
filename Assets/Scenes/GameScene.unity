@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5173403d67472664897e31649dd97f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 4895201360780507394, guid: 7e4b11b0d7cb4214a8f61e4ad6d82b16, type: 3}
+  ballPrefab: {fileID: 623668918924706817, guid: 7e4b11b0d7cb4214a8f61e4ad6d82b16, type: 3}
   scaleTime: 0.25
 --- !u!114 &614956669
 MonoBehaviour:
