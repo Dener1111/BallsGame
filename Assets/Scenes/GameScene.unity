@@ -393,6 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 4895201360780507394, guid: 7e4b11b0d7cb4214a8f61e4ad6d82b16, type: 3}
+  scaleTime: 0.25
 --- !u!114 &614956669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 42898008e13855b408ed463cab3cc8fd, type: 2}
   spawner: {fileID: 614956668}
+  mergeVfx: {fileID: 3629646144696717861, guid: 8d4876e90e79bfa469489013bb1c9802, type: 3}
   maxStartBallCount: 4
   maxPlayerScale: 7
   spawnZonePos: {x: 0, y: -2.23}

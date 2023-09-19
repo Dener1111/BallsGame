@@ -10,6 +10,9 @@ public class BallManager : MonoBehaviour
     [SerializeField] BallSettings settings;
     public BallSpawner spawner;
 
+    [SerializeField] ParticleSystem mergeVfx;
+
+
     [Space]
     [SerializeField] int maxStartBallCount = 4;
     [SerializeField] int maxPlayerScale = 7;
@@ -31,6 +34,7 @@ public class BallManager : MonoBehaviour
 
         BallController.onSpawn.AddListener(AddBall);
         BallController.onDespawn.AddListener(RemoveBall);
+        BallController.onMerge.AddListener(OnMerge);
 
         PopulateGameField();
     }
@@ -71,6 +75,21 @@ public class BallManager : MonoBehaviour
         CheckMaxSize();
     }
 
+    void OnMerge(BallController ball)
+    {
+        SpawnVfx(ball);
+    }
+
+    void SpawnVfx(BallController ball)
+    {
+        var vfx = Instantiate(mergeVfx, ball.transform.position, Quaternion.identity);
+
+        ParticleSystem.MainModule vfxMain = vfx.main;
+        int colorIndex = ball.GetScale();
+        // int colorIndex = Mathf.Min(ball.GetScale() + 1, settings.MaxScaleIndex());
+        vfxMain.startColor = new ParticleSystem.MinMaxGradient(settings.balls[colorIndex].color);
+    }
+
     void CheckMaxSize()
     {
         var maxBall = balls.FirstOrDefault(x => x.GetScale() == settings.MaxScaleIndex());
@@ -93,6 +112,7 @@ public class BallManager : MonoBehaviour
 
         BallController.onSpawn.RemoveListener(AddBall);
         BallController.onDespawn.RemoveListener(RemoveBall);
+        BallController.onMerge.RemoveListener(OnMerge);
     }
 
     void OnDrawGizmos()
